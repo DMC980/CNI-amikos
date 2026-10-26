@@ -1,0 +1,628 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="amikosCNI: mi espacio personal en internet.">
+  <title>amikosCNI | Mi espacio</title>
+
+  <style>
+    :root {
+      --rojo: #ff1538;
+      --rojo-oscuro: #a90020;
+      --negro: #090909;
+      --panel: #151515;
+      --texto: #f5f5f5;
+      --gris: #aaaaaa;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--negro);
+      color: var(--texto);
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 17px 7%;
+      background: rgba(9, 9, 9, 0.95);
+      border-bottom: 1px solid #351018;
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      margin: 0;
+      color: var(--rojo);
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-shadow: 0 0 16px #ff153855;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #ddd;
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+
+    nav a:hover {
+      color: var(--rojo);
+    }
+
+    .hero {
+      min-height: 490px;
+      padding: 90px 20px 75px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 50% 40%,
+        #65001366 0%, transparent 65%);
+    }
+
+    .etiqueta {
+      display: inline-block;
+      border: 1px solid var(--rojo);
+      color: var(--rojo);
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      animation: aparecer 1s ease;
+    }
+
+    .hero h2 {
+      margin: 24px 0 12px;
+      font-size: clamp(40px, 10vw, 75px);
+      line-height: 1.05;
+      font-weight: 900;
+    }
+
+    .hero h2 span {
+      color: var(--rojo);
+      text-shadow: 0 0 30px #ff153855;
+    }
+
+    .hero p {
+      max-width: 550px;
+      color: var(--gris);
+      line-height: 1.8;
+    }
+
+    .botones {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .boton {
+      display: inline-block;
+      padding: 13px 22px;
+      border: 1px solid var(--rojo);
+      border-radius: 8px;
+      background: var(--rojo);
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.25s;
+      cursor: pointer;
+    }
+
+    .boton:hover {
+      background: transparent;
+      color: var(--rojo);
+      transform: translateY(-3px);
+      box-shadow: 0 0 22px #ff153833;
+    }
+
+    .boton.secundario {
+      background: transparent;
+      color: white;
+    }
+
+    .seccion {
+      max-width: 1100px;
+      margin: auto;
+      padding: 65px 22px;
+      scroll-margin-top: 75px;
+    }
+
+    .titulo {
+      margin: 0 0 12px;
+      text-align: center;
+      font-size: 30px;
+    }
+
+    .titulo span {
+      color: var(--rojo);
+    }
+
+    .subtitulo {
+      color: var(--gris);
+      text-align: center;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .sobre {
+      max-width: 750px;
+      margin: auto;
+      padding: 28px;
+      background: var(--panel);
+      border: 1px solid #302020;
+      border-radius: 16px;
+      text-align: center;
+      line-height: 1.9;
+      color: #ccc;
+    }
+
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .foto {
+      overflow: hidden;
+      position: relative;
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid #333;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+
+    .foto:hover {
+      border-color: var(--rojo);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px #ff153822;
+    }
+
+    .foto img {
+      display: block;
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+
+    .foto:hover img {
+      transform: scale(1.06);
+    }
+
+    .foto p {
+      padding: 0 12px;
+      font-size: 14px;
+    }
+
+    .musica-card {
+      max-width: 600px;
+      margin: auto;
+      padding: 28px;
+      background: linear-gradient(135deg, #191919, #27070d);
+      border: 1px solid #63202d;
+      border-radius: 18px;
+      text-align: center;
+    }
+
+    .disco {
+      width: 100px;
+      height: 100px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 18px;
+      border: 3px solid var(--rojo);
+      border-radius: 50%;
+      background: #0b0b0b;
+      font-size: 38px;
+      box-shadow: 0 0 25px #ff153833;
+    }
+
+    .disco.sonando {
+      animation: girar 4s linear infinite;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 18px;
+      accent-color: var(--rojo);
+    }
+
+    .nota {
+      font-size: 12px;
+      color: var(--gris);
+      line-height: 1.7;
+    }
+
+    .redes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .red-social {
+      min-width: 125px;
+      padding: 16px;
+      border: 1px solid #3c2428;
+      background: var(--panel);
+      border-radius: 10px;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      transition: 0.25s;
+    }
+
+    .red-social:hover {
+      color: var(--rojo);
+      border-color: var(--rojo);
+      transform: translateY(-4px);
+    }
+
+    .mensaje {
+      text-align: center;
+      color: var(--gris);
+      line-height: 1.8;
+    }
+
+    footer {
+      padding: 28px 15px;
+      border-top: 1px solid #32151b;
+      text-align: center;
+      color: var(--gris);
+      font-size: 13px;
+    }
+
+    footer span {
+      color: var(--rojo);
+    }
+
+    .arriba {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      z-index: 5;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--rojo);
+      color: white;
+      font-size: 21px;
+      cursor: pointer;
+    }
+
+    .revelar {
+      animation: aparecer 0.8s ease both;
+    }
+
+    @keyframes girar {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 650px) {
+      header {
+        flex-direction: column;
+        padding: 14px 10px;
+      }
+
+      nav {
+        justify-content: center;
+        gap: 13px;
+      }
+
+      .hero {
+        min-height: 430px;
+        padding-top: 65px;
+      }
+
+      .galeria {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .foto img {
+        height: 145px;
+      }
+
+      .seccion {
+        padding: 48px 16px;
+      }
+
+      .titulo {
+        font-size: 26px;
+      }
+
+      .sobre, .musica-card {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .galeria {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1 class="logo">amikosCNI</h1>
+
+    <nav aria-label="Navegación principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#sobre">Sobre mí</a>
+      <a href="#galeria">Galería</a>
+      <a href="#musica">Música</a>
+      <a href="#redes">Redes</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <span class="etiqueta">MI ESPACIO PERSONAL</span>
+
+      <h2>WELCOME TO<br><span>amikosCNI</span></h2>
+
+      <p>
+        Un espacio creado a mi manera.
+        Mis gustos, mi música, mis fotos y mi mundo.
+        ¡Bienvenido a mi página!
+      </p>
+
+      <div class="botones">
+        <a class="boton" href="#sobre">Explorar página</a>
+        <a class="boton secundario" href="#redes">Mis redes</a>
+      </div>
+    </section>
+
+    <section class="seccion" id="sobre">
+      <h2 class="titulo">SOBRE <span>MÍ</span></h2>
+      <p class="subtitulo">Conoce un poco de mi mundo.</p>
+
+      <div class="sobre">
+        <h3 style="color:#ff1538">¡Hola, soy el creador!</h3>
+
+        <p>
+          Bienvenido a amikosCNI. Esta es mi página personal,
+          un lugar para compartir mis intereses, mis fotos,
+          mi música favorita y mis proyectos.
+        </p>
+
+        <p>
+          Estoy construyendo este espacio desde mi teléfono,
+          usando HTML, CSS y JavaScript.
+        </p>
+      </div>
+    </section>
+
+    <section class="seccion" id="galeria">
+      <h2 class="titulo">MI <span>GALERÍA</span></h2>
+      <p class="subtitulo">
+        Algunas imágenes para decorar mi espacio.
+        Después puedes cambiarlas por tus propias fotos.
+      </p>
+
+      <div class="galeria">
+        <article class="foto">
+          <img
+            src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80"
+            alt="Cielo nocturno"
+            loading="lazy">
+          <p>🌌 Mi universo</p>
+        </article>
+
+        <article class="foto">
+          <img
+            src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"
+            alt="Paisaje natural"
+            loading="lazy">
+          <p>🌿 Naturaleza</p>
+        </article>
+
+        <article class="foto">
+          <img
+            src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80"
+            alt="Videojuegos"
+            loading="lazy">
+          <p>🎮 Gaming</p>
+        </article>
+
+        <article class="foto">
+          <img
+            src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80"
+            alt="Noche estrellada"
+            loading="lazy">
+          <p>✨ Mi inspiración</p>
+        </article>
+
+        <article class="foto">
+          <img
+            src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80"
+            alt="Cielo oscuro"
+            loading="lazy">
+          <p>🌙 Night vibes</p>
+        </article>
+
+        <article class="foto">
+          <img
+            src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80"
+            alt="Zona gamer"
+            loading="lazy">
+          <p>🔥 Mis favoritos</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="seccion" id="musica">
+      <h2 class="titulo">MI <span>MÚSICA</span></h2>
+      <p class="subtitulo">Dale play y disfruta el ambiente.</p>
+
+      <div class="musica-card">
+        <div class="disco" id="disco">🎵</div>
+
+        <h3>Mi reproductor</h3>
+        <p id="estadoMusica">Tu música, tu estilo.</p>
+
+        <audio id="audio" controls preload="metadata">
+          <source src="musica.mp3" type="audio/mpeg">
+          Tu navegador no puede reproducir este audio.
+        </audio>
+
+        <p class="nota">
+          Coloca tu archivo de audio llamado
+          <b>musica.mp3</b> en la misma carpeta que index.html.
+          Luego pulsa reproducir.
+        </p>
+      </div>
+    </section>
+
+    <section class="seccion" id="redes">
+      <h2 class="titulo">MIS <span>REDES</span></h2>
+      <p class="subtitulo">
+        Encuéntrame en mis plataformas.
+      </p>
+
+      <div class="redes">
+        <!-- Cambia estos enlaces por tus perfiles reales. -->
+
+        <a class="red-social"
+           href="https://www.instagram.com/"
+           target="_blank"
+           rel="noopener noreferrer">
+          📸 Instagram
+        </a>
+
+        <a class="red-social"
+           href="https://www.tiktok.com/"
+           target="_blank"
+           rel="noopener noreferrer">
+          🎬 TikTok
+        </a>
+
+        <a class="red-social"
+           href="https://www.youtube.com/"
+           target="_blank"
+           rel="noopener noreferrer">
+          ▶ YouTube
+        </a>
+
+        <a class="red-social"
+           href="https://discord.com/"
+           target="_blank"
+           rel="noopener noreferrer">
+          🎮 Discord
+        </a>
+      </div>
+    </section>
+
+    <section class="seccion">
+      <h2 class="titulo">GRACIAS POR <span>VISITAR</span></h2>
+      <p class="mensaje">
+        Esto es solo el comienzo de amikosCNI.<br>
+        ¡Nos vemos en la próxima! ❤️‍🔥
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Hecho con ❤️ y código por <span>amikosCNI</span></p>
+    <p>© <span id="anio"></span> amikosCNI · Todos los derechos reservados.</p>
+  </footer>
+
+  <button class="arriba"
+          id="arriba"
+          aria-label="Volver al inicio"
+          title="Volver arriba">↑</button>
+
+  <script>
+    // Actualizar el año automáticamente.
+    document.getElementById("anio").textContent =
+      new Date().getFullYear();
+
+    // Efecto del reproductor.
+    const audio = document.getElementById("audio");
+    const disco = document.getElementById("disco");
+    const estado = document.getElementById("estadoMusica");
+
+    audio.addEventListener("play", () => {
+      disco.classList.add("sonando");
+      estado.textContent = "🎶 ¡Disfruta la música!";
+    });
+
+    audio.addEventListener("pause", () => {
+      disco.classList.remove("sonando");
+      estado.textContent = "Música en pausa.";
+    });
+
+    audio.addEventListener("ended", () => {
+      disco.classList.remove("sonando");
+      estado.textContent = "Canción terminada.";
+    });
+
+    audio.addEventListener("error", () => {
+      if (audio.networkState !== HTMLMediaElement.NETWORK_NO_SOURCE) {
+        return;
+      }
+      estado.textContent =
+        "Añade musica.mp3 a la carpeta de tu página.";
+    });
+
+    // Botón para volver al inicio.
+    document.getElementById("arriba").addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+
+</body>
+</html>
